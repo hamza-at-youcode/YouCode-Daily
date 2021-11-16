@@ -8,6 +8,7 @@ char getChoice(){
     printf("\tPress 2 to display records.\n");
     printf("\tPress 3 to sort your records.\n");
     printf("\tPress 4 to find a record.\n");
+    printf("\tPress 5 to delete a record.\n");
     printf("\tPress c to clear screen.\n");
     printf("\tPress 0 to exit.\n");
     printf("   *****************************\n");
@@ -67,6 +68,16 @@ int findRec(int *p,int len,int x){
     return found;
 }
 
+void deleteRec(int *p,int *size,int x){
+    int pos = findRec(p,*size,x);
+    if (pos != -1){
+        (*size)--;
+        for (int i = pos; i < *size; i++) *(p+i) = *(p+i+1);
+        p = (int*)realloc(p,(*size) * sizeof(int));
+        printf("\nRecord %d deleted successfully!",x);
+    }else printf("\nRecord %d does not exist!",x);
+}
+
 void _continue(){
     printf("\nPress any key to continue /");
     char c = getch();
@@ -111,10 +122,16 @@ int main(){
                 int pos = findRec(rec,size,x);
                 if (pos == -1) printf("\n%d does not exist!!\n",x);
                 else printf("\n%d exits at position %d\n",x,pos);
-
                 _continue();
             }
-        break;  
+        break;
+        case '5':{
+            int r;
+            printf("\nEnter a record to delete: ");
+            scanf("%d",&r);
+            deleteRec(rec,&size,r);
+            _continue();
+        }  
         case 'c':clear();break;  
         default:
             clear();
