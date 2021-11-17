@@ -52,14 +52,16 @@ void vote(char* e[][2],int st[][2],int len){
     }
 }
 
-void round1(int nbrOfe,int nbrOfCdd,int stats[][2],int losers[]){
+void round1(int nbrOfe,int nbrOfCdd,int stats[][2],int *l,int *n){
     float bar = 15;
+    int len = 0;
     for (int i = 0; i < nbrOfCdd; i++){
-        if ((stats[i][1]*nbrOfe)/100<bar)
+        if ((stats[i][1]*100)/nbrOfe<bar)
         {
-            losers[i] = i+1;
+            *(l+i) = i+1; len++;
         }
     }
+    *n=len;
 }
 
 int main(){
@@ -78,4 +80,10 @@ int main(){
     {
         printf("Cdd %d => %d\n",stats[i][0],stats[i][1]);
     }
+
+    // Round 1
+    int *losers,n;
+    round1(numOfe,numOfCdd,stats,losers,&n);
+    printf("\nn = %d\n",n);
+    for (int i = 0; i < n; i++){printf(">%d\n",losers[i]);}
 }
