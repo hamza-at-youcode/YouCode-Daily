@@ -78,6 +78,13 @@ void deleteRec(int *p,int *size,int x){
     }else printf("\nRecord %d does not exist!",x);
 }
 
+void addRecord(int *p,int *size){
+    int r,w;
+    printf("\nOn progress...\n");return;
+    printf("Enter a record: ");scanf("%d",&r);
+    printf("Where do you want to add this record: ");scanf("%d",&w);
+}
+
 void _continue(){
     printf("\nPress any key to continue /");
     char c = getch();
