@@ -69,7 +69,7 @@ void displayCdd(Candidate p[],int len){
 
     if(len == 0){
         printf("\n\nList of candidates is empty!");
-        printf("Press 1: to register new candidates.");
+        printf("\nPress 1: to register new candidates.\n\n");
         return;
     }
 
@@ -94,10 +94,9 @@ int findCandidate(Candidate c[],int id,int cLen){
     return -1;
 }
 
-void vote(Elector e[],Candidate *c,int eLen,int cLen){
+void vote(Elector e[],Candidate *c,int eLen,int cLen,int round){
     int voteFor;
     int index = -1;
-
     resetVotes(c,cLen);
 
     for (int i = 0; i < eLen; i++)
@@ -110,7 +109,7 @@ void vote(Elector e[],Candidate *c,int eLen,int cLen){
         printf("\n\n------------- I am: ----------------\n");
         printf("------ Elector CIN: %s\n",e[i].cin);
         printf("------ Full Name: %s\n",e[i].fullName);
-        printf("------------------------------------\n");
+        printf("------------- Round %d -------------\n",round);
         printf("\nI vote for: ");
 
         scanf("%d",&voteFor);
@@ -128,9 +127,8 @@ void vote(Elector e[],Candidate *c,int eLen,int cLen){
     }
 }
 
-void round1(Candidate *c,int *nbrOfc,int nbrOfe,int *round){
+void round1(Candidate *c,int *nbrOfc,int nbrOfe){
     int bar = 15,prs = 0;
-    *round = 1;
     sortCandidates(c,*nbrOfc);
     for(int i=*nbrOfc-1;i>=0;i--){
         prs = (c[i].votes * 100)/nbrOfe;
@@ -139,6 +137,17 @@ void round1(Candidate *c,int *nbrOfc,int nbrOfe,int *round){
             c = (Candidate*)realloc(c,*nbrOfc*sizeof(Candidate));
         }else return;
     }
+}
+
+void round2(Candidate *c,int *nbrOfc){
+    if(*nbrOfc == 1){
+        printf("\n\n****** ***** ***** ***** ******\n");
+        printf("THE WINNER IS: %s\n",c[(*nbrOfc)-1].fullName);
+        printf("\n****** ***** ***** ***** ******\n");
+        return;
+    }
+    (*nbrOfc)-=1;
+    c = (Candidate*)realloc(c,*nbrOfc*sizeof(Candidate));
 }
 
 void menu(){
@@ -160,7 +169,7 @@ void menu(){
 int main(){
     Candidate *c;
     Elector *e;
-    int nbrOfc = 0,nbrOfe = 0,round = 0;
+    int nbrOfc = 0,nbrOfe = 0,round = 1;
     char choice;
 
     do{
@@ -182,11 +191,21 @@ int main(){
             }break;
 
             case '3':{
-                vote(e,c,nbrOfe,nbrOfc);
-                round1(c,&nbrOfc,nbrOfe,&round);
+                vote(e,c,nbrOfe,nbrOfc,round);
+                round1(c,&nbrOfc,nbrOfe);
+                printf("\n***** Qualifiers to ROUND 2 *****");
+                displayCdd(c,nbrOfc);
+
+                round = 2;
+                vote(e,c,nbrOfe,nbrOfc,round);
+                round2(c,&nbrOfc);
+                printf("\n***** Qualifiers to ROUND 3 *****");
+                displayCdd(c,nbrOfc);
             }break;
             
             case '4':displayCdd(c,nbrOfc);break;
+            case 'Q':exit(0);
+            default:printf("\n\nPlease follow the instructions!\n");break;
 
         }
     }while(choice != 'q' && choice != 'Q');
