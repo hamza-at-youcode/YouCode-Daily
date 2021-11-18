@@ -55,7 +55,7 @@ void displayCdd(Candidate p[],int len){
 }
 
 void resetVotes(Candidate *p,int len){
-    for(int i=0;i<len;i++) p->votes = 0;
+    for(int i=0;i<len;i++) p[i].votes = 0;
 }
 
 int findCandidate(Candidate c[],int id,int cLen){
@@ -69,9 +69,12 @@ void vote(Elector e[],Candidate *c,int eLen,int cLen){
     int voteFor;
     int index = -1;
 
+    resetVotes(c,cLen);
+
     for (int i = 0; i < eLen; i++)
     {
         system("cls");
+        sortCandidates(c,cLen);
         
         displayCdd(c,cLen);
         
@@ -117,6 +120,19 @@ int sortCandidates(Candidate *p,int len){
     return isSorted;
 }
 
+void round1(Candidate *c,int *nbrOfc,int nbrOfe,int *round){
+    int bar = 15,prs = 0;
+    *round = 1;
+    sortCandidates(c,*nbrOfc);
+    for(int i=*nbrOfc-1;i>=0;i--){
+        prs = (c[i].votes * 100)/nbrOfe;
+        if(prs<bar){
+            (*nbrOfc)-=1;
+            c = (Candidate*)realloc(c,*nbrOfc*sizeof(Candidate));
+        }else return;
+    }
+}
+
 void menu(){
     printf("\n\n      ******** MENU ********\n");
     printf("   Press 1: to register candidates.\n");
@@ -133,7 +149,7 @@ void menu(){
 int main(){
     Candidate *c;
     Elector *e;
-    int nbrOfc = 0,nbrOfe = 0;
+    int nbrOfc = 0,nbrOfe = 0,round = 0;
     char choice;
 
     do{
@@ -156,6 +172,7 @@ int main(){
 
             case '3':{
                 vote(e,c,nbrOfe,nbrOfc);
+                round1(c,&nbrOfc,nbrOfe,&round);
             }break;
             
             case '4':displayCdd(c,nbrOfc);break;
