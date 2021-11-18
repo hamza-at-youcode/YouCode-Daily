@@ -102,7 +102,7 @@ int sortCandidates(Candidate *p,int len){
     do{
         for (int j = 0; j < len-i-1; j++)
         {
-            if (p[j].votes > p[j+1].votes)
+            if (p[j].votes < p[j+1].votes)
             {
                 int tmp = p[j].votes;
                 p[j].votes = p[j+1].votes;
