@@ -50,6 +50,7 @@ void displayCdd(Candidate p[],int len){
         printf("\nCandidate %d:\n",i+1);
         printf("   ID: %d\n",p[i].id);
         printf("   Name: %s\n",p[i].fullName);
+        printf("   Votes: %s\n",p[i].votes);
     }
 }
 
