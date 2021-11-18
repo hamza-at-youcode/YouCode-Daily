@@ -125,6 +125,8 @@ void vote(Elector e[],Candidate *c,int eLen,int cLen,int round){
         c[index].votes+=1;
         
     }
+
+    if(c[0].votes == c[cLen-1].votes) vote(e,c,eLen,cLen,round);
 }
 
 void round1(Candidate *c,int *nbrOfc,int nbrOfe){
@@ -146,6 +148,9 @@ void round2(Candidate *c,int *nbrOfc){
         printf("\n****** ***** ***** ***** ******\n");
         return;
     }
+    
+    if(c[(*nbrOfc)-1].votes == c[(*nbrOfc)-2].votes) return;
+    
     (*nbrOfc)-=1;
     c = (Candidate*)realloc(c,*nbrOfc*sizeof(Candidate));
 }
