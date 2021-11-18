@@ -57,13 +57,86 @@ void resetVotes(Candidate *p,int len){
     for(int i=0;i<len;i++) p->votes = 0;
 }
 
+int findCandidate(Candidate c[],int id,int cLen){
+    for(int k=0;k<cLen;k++){
+        if(c[k].id == id) return k;
+    }
+    return -1;
+}
+
+void vote(Elector e[],Candidate *c,int eLen,int cLen){
+    int voteFor;
+    int index = -1;
+
+    for (int i = 0; i < eLen; i++)
+    {
+        system("cls");
+        
+        displayCdd(c,cLen);
+        
+        printf("\n\n------------- I am: ----------------\n");
+        printf("------ Elector CIN: %s\n",e[i].cin);
+        printf("------ Full Name: %s\n",e[i].fullName);
+        printf("------------------------------------\n");
+        printf("\nI vote for: ");
+
+        scanf("%d",&voteFor);
+
+        while(voteFor < 1 || voteFor > cLen){
+            printf("\nPlease enter a vilide id: ");
+            scanf("%d",&voteFor);
+        }
+
+        index =  findCandidate(c,voteFor,cLen);
+        c[index].votes+=1;
+        
+    }
+}
+
+
+
+int sortCandidates(Candidate *p,int len){
+    int isSorted = 1;
+    int i = 0,j;
+    do{
+        for (int j = 0; j < len-i-1; j++)
+        {
+            if (p[j].votes > p[j+1].votes)
+            {
+                int tmp = p[j].votes;
+                p[j].votes = p[j+1].votes;
+                p[j+1].votes = tmp;
+                isSorted = 0;
+            }
+            
+        }
+        i++;
+    }while(i<len-1 && !isSorted);
+
+    return isSorted;
+}
+
 int main(){
     Candidate *c;
-    int l = 3;
+    Elector *e;
+    int l = 5,el=10;
+
+    // Handling candidates
     c = (Candidate*)malloc(l*sizeof(Candidate));
-    
     registerCandidates(c,l);
     displayCdd(c,l);
+    
+    // Handling electors
+    e = (Elector*)malloc(el*sizeof(Elector));
+    registerElectors(e,el);
+    
+
+    vote(e,c,el,l);
+
+
+    for(int m=0;m<l;m++){
+        printf("\nID: %d\nVotes: %d\n",c[m].id,c[m].votes);
+    }
 
     return 0;
 }
