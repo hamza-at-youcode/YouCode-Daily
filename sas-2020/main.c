@@ -44,7 +44,7 @@ void registerElectors(Elector *p,int len){
 }
 
 void displayCdd(Candidate p[],int len){
-    printf("\n\n***** DISPLAYING CANDIDATES *****\n");
+    printf("\n\n***** LIST OF CANDIDATES *****\n");
     for (int i = 0; i < len; i++)
     {
         printf("\nCandidate %d:\n",i+1);
