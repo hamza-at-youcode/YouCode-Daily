@@ -82,12 +82,14 @@ void vote(Elector e[],Candidate *c,int eLen,int cLen){
 
         scanf("%d",&voteFor);
 
-        while(voteFor < 1 || voteFor > cLen){
-            printf("\nPlease enter a vilide id: ");
+        index =  findCandidate(c,voteFor,cLen);
+
+        while(index == -1){
+            printf("\nPlease enter a vilide ID: ");
             scanf("%d",&voteFor);
+            index = findCandidate(c,voteFor,cLen);
         }
 
-        index =  findCandidate(c,voteFor,cLen);
         c[index].votes+=1;
         
     }
