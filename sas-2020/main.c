@@ -12,6 +12,28 @@ typedef struct elector{
     char fullName[30];
 }Elector;
 
+int sortCandidates(Candidate *p,int len){
+    int isSorted = 1;
+    int i = 0,j;
+    Candidate tmp;
+    do{
+        for (int j = 0; j < len-i-1; j++)
+        {
+            if (p[j].votes < p[j+1].votes)
+            {
+                tmp = p[j];
+                p[j] = p[j+1];
+                p[j+1] = tmp;
+                isSorted = 0;
+            }
+            
+        }
+        i++;
+    }while(i<len-1 && !isSorted);
+
+    return isSorted;
+}
+
 void readCdd(Candidate *p){
     p->votes = 0;
     printf("Enter the Id: ");
@@ -97,28 +119,6 @@ void vote(Elector e[],Candidate *c,int eLen,int cLen){
         c[index].votes+=1;
         
     }
-}
-
-int sortCandidates(Candidate *p,int len){
-    int isSorted = 1;
-    int i = 0,j;
-    Candidate tmp;
-    do{
-        for (int j = 0; j < len-i-1; j++)
-        {
-            if (p[j].votes < p[j+1].votes)
-            {
-                tmp = p[j];
-                p[j] = p[j+1];
-                p[j+1] = tmp;
-                isSorted = 0;
-            }
-            
-        }
-        i++;
-    }while(i<len-1 && !isSorted);
-
-    return isSorted;
 }
 
 void round1(Candidate *c,int *nbrOfc,int nbrOfe,int *round){
