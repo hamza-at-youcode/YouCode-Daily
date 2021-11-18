@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include<conio.h>
 typedef struct candidate{
     int id;
     char fullName[30];
@@ -93,8 +93,6 @@ void vote(Elector e[],Candidate *c,int eLen,int cLen){
     }
 }
 
-
-
 int sortCandidates(Candidate *p,int len){
     int isSorted = 1;
     int i = 0,j;
@@ -116,27 +114,51 @@ int sortCandidates(Candidate *p,int len){
     return isSorted;
 }
 
+void menu(){
+    printf("\n\n      ******** MENU ********\n");
+    printf("   Press 1: to register candidates.\n");
+    printf("   Press 2: to register electors.\n");
+    printf("   Press 3: to start voting.\n");
+    printf("   Press 4: to display candidates.\n");
+    printf("   Press 5: to register candidates.\n");
+    printf("   Press 6: to register candidates.\n");
+    printf("   Press 7: to register candidates.\n");
+    printf("   Press Q: to end this session.\n"); 
+    printf("\n   Your choice: "); 
+}
+
 int main(){
     Candidate *c;
     Elector *e;
-    int l = 5,el=10;
+    int nbrOfc = 0,nbrOfe = 0;
+    char choice;
 
-    // Handling candidates
-    c = (Candidate*)malloc(l*sizeof(Candidate));
-    registerCandidates(c,l);
-    displayCdd(c,l);
-    
-    // Handling electors
-    e = (Elector*)malloc(el*sizeof(Elector));
-    registerElectors(e,el);
-    
+    do{
+        menu();
+        choice = getch();
+        switch(choice){
+            case '1':{
+                printf("\nEnter the numbre of candidates: ");
+                scanf("%d",&nbrOfc);
+                c = (Candidate*)malloc(nbrOfc*sizeof(Candidate));
+                registerCandidates(c,nbrOfc);
+            }break;
 
-    vote(e,c,el,l);
+            case '2':{
+                printf("\nEnter the numbre of electors: ");
+                scanf("%d",&nbrOfe);
+                e = (Elector*)malloc(nbrOfe*sizeof(Elector));
+                registerElectors(e,nbrOfe);
+            }break;
 
+            case '3':{
+                vote(e,c,nbrOfe,nbrOfc);
+            }break;
+            
+            case '4':displayCdd(c,nbrOfc);break;
 
-    for(int m=0;m<l;m++){
-        printf("\nID: %d\nVotes: %d\n",c[m].id,c[m].votes);
-    }
+        }
+    }while(choice != 'q' && choice != 'Q');
 
     return 0;
 }
