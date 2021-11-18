@@ -21,10 +21,7 @@ void readPerson(Person *p){
 }
 
 void registerPersons(Person *p,int len){
-    for(int i=0;i<len;i++) {
-        printf("*** reading cdd %d *****\n",i+1);
-        readPerson(&p[i]);
-    };
+    for(int i=0;i<len;i++) readPerson(&p[i]);
 }
 
 void displayCdd(Person p[],int len){
