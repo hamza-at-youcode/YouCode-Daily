@@ -66,6 +66,13 @@ void registerElectors(Elector *p,int len){
 }
 
 void displayCdd(Candidate p[],int len){
+
+    if(len == 0){
+        printf("\n\nList of candidates is empty!");
+        printf("Press 1: to register new candidates.");
+        return;
+    }
+
     printf("\n\n***** LIST OF CANDIDATES *****\n");
     for (int i = 0; i < len; i++)
     {
@@ -135,6 +142,9 @@ void round1(Candidate *c,int *nbrOfc,int nbrOfe,int *round){
 }
 
 void menu(){
+    printf("\nPress any key to continue/ ");
+    char c = getch();
+    system("cls");
     printf("\n\n      ******** MENU ********\n");
     printf("   Press 1: to register candidates.\n");
     printf("   Press 2: to register electors.\n");
