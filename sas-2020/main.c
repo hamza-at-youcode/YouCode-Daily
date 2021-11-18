@@ -102,14 +102,15 @@ void vote(Elector e[],Candidate *c,int eLen,int cLen){
 int sortCandidates(Candidate *p,int len){
     int isSorted = 1;
     int i = 0,j;
+    Candidate tmp;
     do{
         for (int j = 0; j < len-i-1; j++)
         {
             if (p[j].votes < p[j+1].votes)
             {
-                int tmp = p[j].votes;
-                p[j].votes = p[j+1].votes;
-                p[j+1].votes = tmp;
+                tmp = p[j];
+                p[j] = p[j+1];
+                p[j+1] = tmp;
                 isSorted = 0;
             }
             
