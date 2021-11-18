@@ -99,6 +99,8 @@ void vote(Elector e[],Candidate *c,int eLen,int cLen,int round){
     int index = -1;
     resetVotes(c,cLen);
 
+    if(cLen == 1) return;
+
     for (int i = 0; i < eLen; i++)
     {
         system("cls");
@@ -155,6 +157,17 @@ void round2(Candidate *c,int *nbrOfc){
     c = (Candidate*)realloc(c,*nbrOfc*sizeof(Candidate));
 }
 
+void round3(Elector e[],Candidate *c,int nbrOfc,int eLen){
+    vote(e,c,eLen,nbrOfc,3);
+
+    if(c[nbrOfc-1].votes == c[nbrOfc-2].votes) {round3(e,c,nbrOfc,eLen);}
+    else {
+       printf("\n\n****** ***** ***** ***** ******\n");
+       printf("THE WINNER IS: %s\n",c[nbrOfc-1].fullName);
+       printf("\n****** ***** ***** ***** ******\n"); 
+    }
+}
+
 void menu(){
     printf("\nPress any key to continue/ ");
     char c = getch();
@@ -206,6 +219,8 @@ int main(){
                 round2(c,&nbrOfc);
                 printf("\n***** Qualifiers to ROUND 3 *****");
                 displayCdd(c,nbrOfc);
+
+                round3(e,c,nbrOfc,nbrOfe);
             }break;
             
             case '4':displayCdd(c,nbrOfc);break;
