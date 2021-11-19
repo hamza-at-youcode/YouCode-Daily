@@ -152,6 +152,7 @@ void round2(Candidate *c,int *nbrOfc){
 
 void round3(Elector e[],Candidate *c,int nbrOfc,int eLen){
     vote(e,c,eLen,nbrOfc,3);
+    system("cls");
     if (nbrOfc == 1){
         printf("\n\n****** ***** ***** ***** ******\n");
         printf("THE WINNER IS: %s\n",c[0].fullName);
