@@ -159,12 +159,11 @@ void round2(Candidate *c,int *nbrOfc){
 
 void round3(Elector e[],Candidate *c,int nbrOfc,int eLen){
     vote(e,c,eLen,nbrOfc,3);
-
     if(c[0].votes == c[1].votes) {round3(e,c,nbrOfc,eLen);}
     else {
        printf("\n\n****** ***** ***** ***** ******\n");
-       printf("THE WINNER IS: %s\n",c[nbrOfc-1].fullName);
-       printf("\n****** ***** ***** ***** ******\n"); 
+       printf("THE WINNER IS: %s\n",c[0].fullName);
+       printf("****** ***** ***** ***** ******\n"); 
     }
 }
 
