@@ -177,9 +177,6 @@ void menu(){
     printf("   Press 2: to register electors.\n");
     printf("   Press 3: to start voting.\n");
     printf("   Press 4: to display candidates.\n");
-    printf("   Press 5: to register candidates.\n");
-    printf("   Press 6: to register candidates.\n");
-    printf("   Press 7: to register candidates.\n");
     printf("   Press Q: to end this session.\n"); 
     printf("\n   Your choice: "); 
 }
