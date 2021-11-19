@@ -144,21 +144,20 @@ void round1(Candidate *c,int *nbrOfc,int nbrOfe){
 }
 
 void round2(Candidate *c,int *nbrOfc){
-    if(*nbrOfc == 1){
-        printf("\n\n****** ***** ***** ***** ******\n");
-        printf("THE WINNER IS: %s\n",c[(*nbrOfc)-1].fullName);
-        printf("\n****** ***** ***** ***** ******\n");
-        return;
-    }
-    
+    if(*nbrOfc == 1) return;
     if(c[(*nbrOfc)-1].votes == c[(*nbrOfc)-2].votes) return;
-    
     (*nbrOfc)-=1;
     c = (Candidate*)realloc(c,*nbrOfc*sizeof(Candidate));
 }
 
 void round3(Elector e[],Candidate *c,int nbrOfc,int eLen){
     vote(e,c,eLen,nbrOfc,3);
+    if (nbrOfc == 1){
+        printf("\n\n****** ***** ***** ***** ******\n");
+        printf("THE WINNER IS: %s\n",c[0].fullName);
+        printf("****** ***** ***** ***** ******\n");
+        return;
+    }
     if(c[0].votes == c[1].votes) {round3(e,c,nbrOfc,eLen);}
     else {
        printf("\n\n****** ***** ***** ***** ******\n");
@@ -228,5 +227,3 @@ int main(){
 
     return 0;
 }
-
-
